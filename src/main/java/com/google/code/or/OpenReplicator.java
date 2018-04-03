@@ -61,7 +61,7 @@ public class OpenReplicator {
 	protected String host;
 	protected String user;
 	protected String password;
-	protected int serverId = 6789;
+	protected long serverId = 6789;
 	protected String binlogFileName;
 	protected long binlogPosition = 4;
 	protected String encoding = "utf-8";
@@ -169,11 +169,11 @@ public class OpenReplicator {
 		this.encoding = encoding;
 	}
 	
-	public int getServerId() {
+	public long getServerId() {
 		return serverId;
 	}
 
-	public void setServerId(int serverId) {
+	public void setServerId(long serverId) {
 		this.serverId = serverId;
 	}
 	
