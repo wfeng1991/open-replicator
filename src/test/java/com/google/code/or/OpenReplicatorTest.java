@@ -2,6 +2,10 @@ package com.google.code.or;
 
 import com.google.code.or.binlog.BinlogEventListener;
 import com.google.code.or.binlog.BinlogEventV4;
+import com.google.code.or.binlog.impl.event.QueryEvent;
+import com.google.code.or.binlog.impl.event.UpdateRowsEvent;
+import com.google.code.or.binlog.impl.event.UpdateRowsEventV2;
+import com.google.code.or.binlog.impl.event.WriteRowsEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,10 +17,14 @@ public class OpenReplicatorTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OpenReplicatorTest.class);
 
 	private static final String host = "localhost";
-//	private static final String host = "rm-2ze3h8614te5zs16uo.mysql.rds.aliyuncs.com";
 	private static final int port = 3306;
 	private static final String user = "root";
 	private static final String password = "root";
+
+//	private static final String host = "10.1.21.230";
+//	private static final int port = 3307;
+//	private static final String user = "test";
+//	private static final String password = "test";
 
 //	-en:1#P<Itrt
 
@@ -36,7 +44,22 @@ public class OpenReplicatorTest {
 
 		or.setBinlogEventListener(new BinlogEventListener() {
 		    public void onEvents(BinlogEventV4 event) {
-		    	LOGGER.info("{}", event);
+
+                if(event instanceof UpdateRowsEventV2){
+                    UpdateRowsEventV2 updateRowsEvent = (UpdateRowsEventV2)event;
+                    LOGGER.info("{}",updateRowsEvent.getRows());
+                }else if(event instanceof UpdateRowsEvent){
+                    UpdateRowsEvent updateRowsEvent = (UpdateRowsEvent)event;
+                    LOGGER.info("{}",updateRowsEvent.getRows());
+                }else if(event instanceof WriteRowsEvent){
+                    WriteRowsEvent writeRowsEvent = (WriteRowsEvent)event;
+                    LOGGER.info("{}",writeRowsEvent.getRows());
+                }else if(event instanceof QueryEvent){
+                    QueryEvent queryEvent = (QueryEvent)event;
+//                    LOGGER.info("{}",queryEvent.getStatusVariables());
+                }
+
+//		    	LOGGER.info("{}", event);
 		    }
 		});
 		or.start();
