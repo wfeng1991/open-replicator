@@ -60,6 +60,9 @@ public final class WriteRowsEvent extends AbstractRowEvent {
 		.append("reserved", reserved)
 		.append("columnCount", columnCount)
 		.append("usedColumns", usedColumns)
+		.append("databaseName", databaseName)
+		.append("tableName", tableName)
+		.append("fullTableName", fullTableName)
 		.append("rows", rows).toString();
 	}
 	

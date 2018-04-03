@@ -24,6 +24,9 @@ public abstract class AbstractRowEvent extends AbstractBinlogEventV4 {
 	//
 	protected long tableId;
 	protected int reserved;
+	protected String tableName;
+	protected String fullTableName;
+	protected String databaseName;
 	
 	/**
 	 * 
@@ -42,5 +45,29 @@ public abstract class AbstractRowEvent extends AbstractBinlogEventV4 {
 
 	public void setReserved(int reserved) {
 		this.reserved = reserved;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+
+	public String getFullTableName() {
+		return fullTableName;
+	}
+
+	public void setFullTableName(String fullTableName) {
+		this.fullTableName = fullTableName;
+	}
+
+	public String getDatabaseName() {
+		return databaseName;
+	}
+
+	public void setDatabaseName(String databaseName) {
+		this.databaseName = databaseName;
 	}
 }

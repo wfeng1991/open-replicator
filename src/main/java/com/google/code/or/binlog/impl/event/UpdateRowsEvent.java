@@ -63,6 +63,9 @@ public final class UpdateRowsEvent extends AbstractRowEvent {
 		.append("columnCount", columnCount)
 		.append("usedColumnsBefore", usedColumnsBefore)
 		.append("usedColumnsAfter", usedColumnsAfter)
+		.append("databaseName", databaseName)
+		.append("tableName", tableName)
+		.append("fullTableName", fullTableName)
 		.append("rows", rows).toString();
 	}
 	

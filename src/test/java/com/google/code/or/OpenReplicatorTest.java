@@ -16,15 +16,15 @@ import java.util.concurrent.TimeUnit;
 public class OpenReplicatorTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OpenReplicatorTest.class);
 
-	private static final String host = "localhost";
-	private static final int port = 3306;
-	private static final String user = "root";
-	private static final String password = "root";
+//	private static final String host = "localhost";
+//	private static final int port = 3306;
+//	private static final String user = "root";
+//	private static final String password = "root";
 
-//	private static final String host = "10.1.21.230";
-//	private static final int port = 3307;
-//	private static final String user = "test";
-//	private static final String password = "test";
+	private static final String host = "10.1.21.230";
+	private static final int port = 3307;
+	private static final String user = "test";
+	private static final String password = "test";
 
 //	-en:1#P<Itrt
 
@@ -33,6 +33,9 @@ public class OpenReplicatorTest {
 	 */
 	public static void main(String args[]) throws Exception {
 		MysqlConnection.setConnection(host, port, user, password);
+
+
+
 		final OpenReplicator or = new OpenReplicator();
 		or.setUser(user);
 		or.setPassword(password);
@@ -47,7 +50,7 @@ public class OpenReplicatorTest {
 
                 if(event instanceof UpdateRowsEventV2){
                     UpdateRowsEventV2 updateRowsEvent = (UpdateRowsEventV2)event;
-                    LOGGER.info("{}",updateRowsEvent.getRows());
+                    LOGGER.info("{},{}",updateRowsEvent.getRows(),updateRowsEvent.toString());
                 }else if(event instanceof UpdateRowsEvent){
                     UpdateRowsEvent updateRowsEvent = (UpdateRowsEvent)event;
                     LOGGER.info("{}",updateRowsEvent.getRows());
@@ -59,7 +62,7 @@ public class OpenReplicatorTest {
 //                    LOGGER.info("{}",queryEvent.getStatusVariables());
                 }
 
-//		    	LOGGER.info("{}", event);
+		    	LOGGER.info("{}", event);
 		    }
 		});
 		or.start();

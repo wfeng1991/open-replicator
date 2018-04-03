@@ -5,6 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MysqlConnection{
     private static final Logger logger = LoggerFactory.getLogger(MysqlConnection.class);
@@ -111,5 +115,42 @@ public class MysqlConnection{
         return serverId;
     }
 
+    public static Map<String,List<ColumnInfo>> getColumns(){
+        Map<String,List<ColumnInfo>> cols = new HashMap<String,List<ColumnInfo>>();
+        Connection conn = getConnection();
+
+        try {
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet r = metaData.getCatalogs();
+            String tableType[] = {"TABLE"};
+            while(r.next()){
+                String databaseName = r.getString("TABLE_CAT");
+                ResultSet result = metaData.getTables(databaseName, null, "%", tableType);
+                while(result.next()){
+                    String tableName = result.getString("TABLE_NAME");
+                    String key = databaseName +"."+tableName;
+                    ResultSet colSet = metaData.getColumns(databaseName, null, tableName, "%");
+                    cols.put(key, new ArrayList<ColumnInfo>());
+                    while(colSet.next()){
+                        ColumnInfo columnInfo = new ColumnInfo(colSet.getString("COLUMN_NAME"),colSet.getString("TYPE_NAME"));
+                        cols.get(key).add(columnInfo);
+                    }
+
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
+        }
+        return cols;
+    }
+
+    public static void main(String[] args) {
+        host = "10.1.21.230";
+        port = 3307;
+        user = "test";
+        password = "test";
+        MysqlConnection.setConnection(host, port, user, password);
+        getColumns();
+    }
 
 }

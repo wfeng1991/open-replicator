@@ -42,6 +42,7 @@ public final class UpdateRowsEventV2 extends AbstractRowEvent {
 	private BitColumn usedColumnsBefore;
 	private BitColumn usedColumnsAfter;
 	private List<Pair<Row>> rows;
+
 	
 	/**
 	 * 
@@ -67,6 +68,9 @@ public final class UpdateRowsEventV2 extends AbstractRowEvent {
 		.append("columnCount", columnCount)
 		.append("usedColumnsBefore", usedColumnsBefore)
 		.append("usedColumnsAfter", usedColumnsAfter)
+		.append("databaseName", databaseName)
+		.append("tableName", tableName)
+		.append("fullTableName", fullTableName)
 		.append("rows", rows).toString();
 	}
 	
@@ -120,4 +124,6 @@ public final class UpdateRowsEventV2 extends AbstractRowEvent {
 	public void setRows(List<Pair<Row>> rows) {
 		this.rows = rows;
 	}
+
+
 }
