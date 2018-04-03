@@ -50,7 +50,7 @@ public class OpenReplicatorTest {
 
                 if(event instanceof UpdateRowsEventV2){
                     UpdateRowsEventV2 updateRowsEvent = (UpdateRowsEventV2)event;
-                    LOGGER.info("{},{}",updateRowsEvent.getRows(),updateRowsEvent.toString());
+                    LOGGER.info("{},{}",updateRowsEvent.getRows(),updateRowsEvent.getFullTableName());
                 }else if(event instanceof UpdateRowsEvent){
                     UpdateRowsEvent updateRowsEvent = (UpdateRowsEvent)event;
                     LOGGER.info("{}",updateRowsEvent.getRows());
@@ -62,7 +62,7 @@ public class OpenReplicatorTest {
 //                    LOGGER.info("{}",queryEvent.getStatusVariables());
                 }
 
-		    	LOGGER.info("{}", event);
+//		    	LOGGER.info("{}", event);
 		    }
 		});
 		or.start();

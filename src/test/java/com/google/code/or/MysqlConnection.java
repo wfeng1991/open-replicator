@@ -143,14 +143,4 @@ public class MysqlConnection{
         }
         return cols;
     }
-
-    public static void main(String[] args) {
-        host = "10.1.21.230";
-        port = 3307;
-        user = "test";
-        password = "test";
-        MysqlConnection.setConnection(host, port, user, password);
-        getColumns();
-    }
-
 }
